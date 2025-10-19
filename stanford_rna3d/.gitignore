@@ -1,0 +1,43 @@
+# Stanford RNA 3D Folding - GitIgnore
+# Author: Mauro Risonho de Paula Assumpção <mauro.risonho@gmail.com>
+# Created: October 18, 2025 at 14:30:00
+# License: MIT License
+# Kaggle Competition: https://www.kaggle.com/competitions/stanford-rna-3d-folding
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment
+.env
+.venv
+env/
+venv/
+
+# Data files
+data/raw/*
+!data/raw/.gitkeep
+checkpoints/
+submissions/*.csv
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Model files
+*.pth
+*.pt
+*.pkl

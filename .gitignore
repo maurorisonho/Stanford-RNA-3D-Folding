@@ -1,0 +1,177 @@
+# Stanford RNA 3D Folding - Git Ignore
+# Machine Learning & Data Science Project
+# Generated: October 18, 2025
+
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ========================
+# Virtual Environments
+# ========================
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.conda/
+conda-meta/
+
+# ========================
+# Jupyter Notebook
+# ========================
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+profile_default/
+ipython_config.py
+
+# ========================
+# Data Files (Large Files)
+# ========================
+# Competition data (can be large)
+data/raw/*.csv
+data/raw/*.json
+data/raw/*.parquet
+data/raw/*.h5
+data/raw/*.hdf5
+data/processed/*.csv
+data/processed/*.json
+data/processed/*.parquet
+data/external/*.csv
+data/external/*.json
+
+# Keep directory structure
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/external/.gitkeep
+
+# ========================
+# Machine Learning Models
+# ========================
+# Trained models (usually large)
+*.pth
+*.pt
+*.pkl
+*.pickle
+*.joblib
+*.h5
+*.hdf5
+*.ckpt
+checkpoints/*.pth
+checkpoints/*.pt
+checkpoints/*.ckpt
+models/*.pth
+models/*.pt
+
+# Model artifacts
+mlruns/
+.mlflow/
+wandb/
+.neptune/
+
+# ========================
+# Submissions & Results
+# ========================
+submissions/*.csv
+results/
+outputs/
+predictions/
+
+# ========================
+# IDE & Editors
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.spyderproject
+.spyproject
+.ropeproject
+
+# ========================
+# OS Generated
+# ========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ========================
+# Logs & Temporary Files
+# ========================
+*.log
+logs/
+*.tmp
+*.temp
+.cache/
+.pytest_cache/
+
+# ========================
+# Environment Variables
+# ========================
+.env
+.env.local
+.env.*.local
+config.ini
+secrets.json
+
+# ========================
+# Test Directories (Temporary)
+# ========================
+test_*/
+temp_*/
+tmp_*/
+
+# ========================
+# Kaggle API Credentials
+# ========================
+kaggle.json
+.kaggle/
+
+# ========================
+# Documentation Build
+# ========================
+docs/_build/
+site/
+
+# ========================
+# Package Management
+# ========================
+.pip-cache/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ========================
+# GPU/CUDA
+# ========================
+*.cuda
+*.cubin
