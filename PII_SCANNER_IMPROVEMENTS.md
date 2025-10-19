@@ -1,8 +1,8 @@
-# 📊 Melhorias no Scanner PII - Resumo
+# PII Scanner Improvements - Summary
 
-## ✅ Funcionalidades Implementadas
+## Implemented Features
 
-### 🚀 Barra de Progresso Interativa
+### Interactive Progress Bar
 - **Biblioteca**: `tqdm` (instalação opcional)
 - **Recursos**:
   - Contador visual de arquivos processados
@@ -10,7 +10,7 @@
   - Estatísticas dinâmicas (achados atuais, arquivo sendo processado)
   - Graceful fallback para texto simples se `tqdm` não disponível
 
-### 📊 Exemplo de Saída com Progresso
+###  Exemplo de Saída com Progresso
 ```
 Iniciando varredura em: stanford_rna3d/notebooks
 Encontrados 5 arquivos para processar
@@ -18,14 +18,14 @@ Escaneando arquivos: 100%|████████████| 5/5 [00:00<00:00
 Varredura concluída. 5 arquivos processados, 10 achados.
 ```
 
-### 🎛️ Novas Opções de Linha de Comando
+###  Novas Opções de Linha de Comando
 - `--no-progress`: Desabilitar barra de progresso
 - Compatibilidade completa com opções existentes
 - Detecção automática de `tqdm` disponível
 
-## 📂 Análise dos Dados Raw (61GB)
+##  Análise dos Dados Raw (61GB)
 
-### 🗂️ Estrutura Atual
+###  Estrutura Atual
 ```
 stanford_rna3d/data/raw/
 ├── .gitkeep
@@ -41,7 +41,7 @@ stanford_rna3d/data/raw/
 └── validation_labels.csv
 ```
 
-### 🔄 Processo de Redownload
+###  Processo de Redownload
 **Script Disponível**: `02_setup_project.py`
 ```bash
 # Redownload completo dos dados
@@ -51,7 +51,7 @@ python3 02_setup_project.py
 python3 02_setup_project.py --skip-download
 ```
 
-## 🛠️ Instruções de Uso
+##  Instruções de Uso
 
 ### Teste Rápido do Scanner
 ```bash
@@ -80,25 +80,25 @@ echo "" > stanford_rna3d/data/raw/.gitkeep
 python3 02_setup_project.py
 ```
 
-## 🎯 Benefícios das Melhorias
+##  Benefícios das Melhorias
 
-### 💼 Performance
+###  Performance
 - **Pré-cálculo** do total de arquivos para progresso preciso
 - **Feedback visual** em tempo real para projetos grandes
 - **Controle de memória** mantido (processamento linha por linha)
 
-### 👤 Experiência do Usuário
+###  Experiência do Usuário
 - **Transparência** total do processo de varredura
 - **Estimativa de tempo** para conclusão
 - **Visibilidade** dos achados em tempo real
 - **Flexibilidade** de ativar/desativar progresso
 
-### 🔧 Robustez
+###  Robustez
 - **Graceful degradation** sem `tqdm`
 - **Type hints** para melhor manutenção
 - **Compatibilidade** com sistemas CI/CD (`--no-progress`)
 
-## 📈 Comparação Antes/Depois
+##  Comparação Antes/Depois
 
 ### Antes
 ```
@@ -116,7 +116,7 @@ Encontrados 1500 arquivos para processar
 Escaneando arquivos: 67%|████████▌    | 1005/1500 [00:12<00:06, 83.2arquivo/s, achados=45, arquivo=data_processor.py...]
 ```
 
-## 🚀 Próximos Passos Recomendados
+##  Próximos Passos Recomendados
 
 1. **Teste do redownload**: Verificar se `02_setup_project.py` funciona corretamente
 2. **Integração CI/CD**: Usar `--no-progress` em pipelines automatizados  

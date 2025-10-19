@@ -18,14 +18,14 @@ Este relatório apresenta os resultados da varredura automatizada por informaç�
 
 ## Classificação de Achados por Prioridade
 
-### 🔴 ALTA PRIORIDADE (Ação Imediata Recomendada)
+### ALTA PRIORIDADE (Ação Imediata Recomendada)
 
 #### 1. Diretórios de Ambiente Virtual
 **Localização**: `.venv/` e `stanford_rna3d/.venv/`
 **Problema**: Estes diretórios contêm packages de terceiros e assets que não devem estar no repositório
 **Ação**: Remover do repositório e adicionar ao .gitignore
 
-### 🟡 MÉDIA PRIORIDADE (Revisão Recomendada)
+### MÉDIA PRIORIDADE (Revisão Recomendada)
 
 #### 2. Emails em Arquivos PDB
 **Localização**: `stanford_rna3d/data/raw/PDB_RNA/*.cif`
@@ -48,7 +48,7 @@ Este relatório apresenta os resultados da varredura automatizada por informaç�
 **Risco**: Baixo - PII voluntário para atribuição
 **Recomendação**: Manter se autoria pública for desejada
 
-### 🟢 BAIXA PRIORIDADE (Informativo)
+### BAIXA PRIORIDADE (Informativo)
 
 #### 4. Dados de Sequência RNA
 **Localização**: `stanford_rna3d/data/raw/train_labels.csv`, `validation_labels.csv`
@@ -58,12 +58,12 @@ Este relatório apresenta os resultados da varredura automatizada por informaç�
 ## Detalhamento Técnico
 
 ### Padrões Pesquisados
-- ✅ Emails: `[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}`
-- ✅ Chaves privadas: `-----BEGIN.*PRIVATE KEY-----`
-- ✅ AWS Access Keys: `AKIA[0-9A-Z]{16}`, etc.
-- ✅ Tokens/senhas: `password|secret|api_key|token|credential`
-- ✅ CPF: `\d{3}\.\d{3}\.\d{3}-\d{2}`
-- ✅ Telefones: padrões BR e internacionais
+- Emails: `[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}`
+- Chaves privadas: `-----BEGIN.*PRIVATE KEY-----`
+- AWS Access Keys: `AKIA[0-9A-Z]{16}`, etc.
+- Tokens/senhas: `password|secret|api_key|token|credential`
+- CPF: `\d{3}\.\d{3}\.\d{3}-\d{2}`
+- Telefones: padrões BR e internacionais
 
 ### Falsos Positivos Identificados
 - Números em datasets CSV: coordenadas X,Y,Z e IDs de sequência
@@ -72,7 +72,7 @@ Este relatório apresenta os resultados da varredura automatizada por informaç�
 
 ## Ações Recomendadas
 
-### Ação 1: Limpeza de Ambiente ⚡ EXECUTAR AGORA
+### Ação 1: Limpeza de Ambiente - EXECUTAR AGORA
 ```bash
 # Adicionar ao .gitignore
 echo ".venv/" >> .gitignore
@@ -92,7 +92,7 @@ git commit -m "Remove virtual environments from repository and update .gitignore
 - Criar script Python para varredura PII automatizada
 - Configurar para executar antes de commits
 
-## Nenhuma Credencial Crítica Encontrada ✅
+## Nenhuma Credencial Crítica Encontrada
 
 A análise **não encontrou**:
 - Chaves privadas SSH/TLS reais no código

@@ -1,25 +1,25 @@
-# 🔍 PII Scanner - Detector Automático de Informações Pessoais
+# PII Scanner - Automated Personal Information Detector
 
-Este script Python automatiza a detecção de **PII (Personally Identifiable Information)** em repositórios de código, permitindo varreduras reprodutíveis e sistemáticas por dados sensíveis.
+This Python script automates the detection of **PII (Personally Identifiable Information)** in code repositories, enabling reproducible and systematic scanning for sensitive data.
 
-## 📋 Funcionalidades
+## Features
 
 ### Tipos de PII Detectados
-- ✉️ **Emails** (medium priority)
-- 🔑 **Chaves privadas** SSH/RSA (critical)
-- 🔐 **Chaves AWS** (critical/high)
-- 🔒 **Credenciais** (passwords, tokens, API keys)
-- 🆔 **CPF brasileiro** (high)
-- 🆔 **SSN americano** (high)
-- 📞 **Telefones brasileiros** (medium)
-- 💳 **Cartões de crédito** (critical)
+-  **Emails** (medium priority)
+-  **Chaves privadas** SSH/RSA (critical)
+-  **Chaves AWS** (critical/high)
+-  **Credenciais** (passwords, tokens, API keys)
+-  **CPF brasileiro** (high)
+-  **SSN americano** (high)
+-  **Telefones brasileiros** (medium)
+-  **Cartões de crédito** (critical)
 
 ### Filtros Inteligentes
 - Ignora automaticamente `.venv`, `node_modules`, `.git`
 - Detecta falsos positivos (coordenadas científicas, exemplos)
 - Filtra arquivos binários e muito grandes
 
-## 🚀 Como Usar
+##  Como Usar
 
 ### Instalação
 ```bash
@@ -58,19 +58,19 @@ chmod +x pii_scanner.py
   --exclude "data/raw/.*"
 ```
 
-## 📊 Interpretação dos Resultados
+##  Interpretação dos Resultados
 
 ### Níveis de Prioridade
-- 🔴 **CRITICAL**: Chaves privadas, cartões de crédito - **AÇÃO IMEDIATA**
-- 🟠 **HIGH**: CPF, SSN, credenciais - **Revisar urgentemente**
-- 🟡 **MEDIUM**: Emails, telefones - **Verificar se apropriado**
-- 🟢 **LOW**: Dados possivelmente públicos - **Documentar**
+-  **CRITICAL**: Chaves privadas, cartões de crédito - **AÇÃO IMEDIATA**
+-  **HIGH**: CPF, SSN, credenciais - **Revisar urgentemente**
+-  **MEDIUM**: Emails, telefones - **Verificar se apropriado**
+-  **LOW**: Dados possivelmente públicos - **Documentar**
 
 ### Códigos de Saída
 - `0`: Nenhum problema ou apenas achados de baixa prioridade
 - `1`: Achados críticos ou de alta prioridade encontrados
 
-## 🔧 Integração com Git Hooks
+##  Integração com Git Hooks
 
 ### Pre-commit Hook
 Crie `.git/hooks/pre-commit`:
@@ -106,7 +106,7 @@ jobs:
           path: pii_report.json
 ```
 
-## 🎯 Casos de Uso
+##  Casos de Uso
 
 ### 1. Auditoria de Segurança
 ```bash
@@ -117,7 +117,7 @@ jobs:
 ### 2. Verificação Pré-Release
 ```bash
 # Apenas problemas críticos/altos
-./pii_scanner.py src/ && echo "✅ Pronto para release"
+./pii_scanner.py src/ && echo "Ready for release"
 ```
 
 ### 3. Limpeza de Repositório
@@ -126,7 +126,7 @@ jobs:
 ./pii_scanner.py --exclude "\.git.*" > cleanup_report.txt
 ```
 
-## 🔄 Personalização
+##  Personalização
 
 ### Adicionar Novos Padrões
 Edite a constante `PATTERNS` no script:
@@ -141,7 +141,7 @@ Edite a constante `PATTERNS` no script:
 ### Filtros Customizados
 Modifique `_is_false_positive()` para casos específicos do seu projeto.
 
-## 📈 Exemplo de Saída
+##  Exemplo de Saída
 
 ```
 ============================================================
@@ -151,28 +151,28 @@ Data: 2024-12-19 10:30:15
 Diretório: /home/user/projeto
 Total de achados: 5
 
-🔴 HIGH PRIORITY (2 achados)
+ HIGH PRIORITY (2 achados)
 --------------------------------------------------
-📁 config/settings.py:15
-🔍 Tipo: secret_keywords
-📝 Texto: api_key = "sk-abc123..."
-📄 Contexto: OPENAI_API_KEY = "sk-abc123..."
+File: config/settings.py:15
+ Tipo: secret_keywords
+Text: Texto: api_key = "sk-abc123..."
+Context: Contexto: OPENAI_API_KEY = "sk-abc123..."
 
-🟡 MEDIUM PRIORITY (3 achados)
+ MEDIUM PRIORITY (3 achados)
 --------------------------------------------------
-📁 docs/README.md:42
-🔍 Tipo: email
-📝 Texto: contato@empresa.com
-📄 Contexto: Entre em contato: contato@empresa.com
+File: docs/README.md:42
+ Tipo: email
+Text: Texto: contato@empresa.com
+Context: Contexto: Entre em contato: contato@empresa.com
 ```
 
-## ⚡ Performance
+##  Performance
 
 - **Velocidade**: ~100 arquivos/segundo
 - **Memória**: Baixo consumo, processa linha por linha
 - **Escalabilidade**: Adequado para repositórios com milhares de arquivos
 
-## 🛡️ Limitações e Considerações
+##  Limitações e Considerações
 
 ### O que NÃO é detectado:
 - PII em dados binários
@@ -186,7 +186,7 @@ Total de achados: 5
 - Chaves de teste/exemplo
 - IDs que parecem credenciais
 
-## 📝 Manutenção
+## Text: Manutenção
 
 Atualize regularmente:
 1. **Padrões regex** para novos tipos de PII
@@ -195,4 +195,4 @@ Atualize regularmente:
 
 ---
 
-**💡 Dica**: Execute o scanner regularmente durante o desenvolvimento para detectar PII antes que chegue ao repositório remoto!
+** Dica**: Execute o scanner regularmente durante o desenvolvimento para detectar PII antes que chegue ao repositório remoto!

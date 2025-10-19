@@ -280,18 +280,18 @@ class PIIScanner:
         for severity in severity_order:
             if severity in by_severity:
                 findings = by_severity[severity]
-                report.append(f"\n🔴 {severity.upper()} PRIORITY ({len(findings)} achados)")
+                report.append(f"\n{severity.upper()} PRIORITY ({len(findings)} achados)")
                 report.append("-" * 50)
                 
                 for finding in findings:
-                    report.append(f"📁 {finding.file_path}:{finding.line_number}")
-                    report.append(f"🔍 Tipo: {finding.pattern_type}")
-                    report.append(f"📝 Texto: {finding.matched_text}")
-                    report.append(f"📄 Contexto: {finding.context_line[:100]}...")
+                    report.append(f"File: {finding.file_path}:{finding.line_number}")
+                    report.append(f"Type: {finding.pattern_type}")
+                    report.append(f"Text: {finding.matched_text}")
+                    report.append(f"Context: {finding.context_line[:100]}...")
                     report.append("")
                     
         if not self.findings:
-            report.append("✅ Nenhum problema de PII encontrado!")
+            report.append("No PII issues found.")
             
         return "\n".join(report)
     
@@ -362,7 +362,7 @@ def main():
     
     # Avisar sobre tqdm se necessário
     if not args.no_progress and not HAS_TQDM:
-        print("💡 Dica: Instale 'tqdm' para barra de progresso: pip install tqdm")
+        print("Tip: Install 'tqdm' for progress bar: pip install tqdm")
         print()
     
     # Executar varredura
@@ -383,13 +383,13 @@ def main():
     if findings:
         critical_high = [f for f in findings if f.severity in ['critical', 'high']]
         if critical_high:
-            print(f"\n⚠️  {len(critical_high)} achados críticos/altos encontrados!")
+            print(f"\nWARNING: {len(critical_high)} critical/high priority findings detected!")
             sys.exit(1)
         else:
-            print(f"\n ℹ️  {len(findings)} achados de baixa prioridade encontrados.")
+            print(f"\nINFO: {len(findings)} low priority findings detected.")
             sys.exit(0)
     else:
-        print("\n✅ Nenhum problema encontrado!")
+        print("\nNo issues found.")
         sys.exit(0)
 
 
