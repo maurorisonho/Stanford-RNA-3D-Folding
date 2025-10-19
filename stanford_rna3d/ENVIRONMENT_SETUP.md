@@ -1,16 +1,16 @@
 # Environment Setup Report
 
 **Author**: Mauro Risonho de Paula Assumpção <mauro.risonho@gmail.com>  
-**Email**: mauro.risonho@gmail.com  
-**Date**: October 18, 2025  
-**Python Version**: 3.13.5 (Latest Stable)  
+**Date**: October 2025  
+**License**: MIT License  
+**Python Version**: 3.13.5  
 
 ## Environment Configuration Complete
 
 ### Python Version
 - **Requested**: Python 3.13.x
 - **Configured**: Python 3.13.5 (virtual environment `.venv`)
-- **Environment Type**: Virtual Environment (.venv)
+- **Environment Type**: Virtual Environment (venv)
 
 ### Core Libraries (Verified Compatible Versions)
 
@@ -30,7 +30,7 @@
 - **pytorch-lightning**: 2.1.3
 - **torchmetrics**: 1.2.0
 
-#### Optimization & Experiment Tracking
+#### Optimisation & Experiment Tracking
 - **optuna**: 3.4.0
 - **wandb**: 0.15.12
 
@@ -44,17 +44,17 @@
 
 ### Status Summary
 - Python environment configured with virtual environment
-- All required libraries installed with latest compatible versions
+- All required libraries installed with compatible versions
 - No import errors detected
 - Notebooks configured with correct kernel
-- First notebook tested successfully
+- First notebook executed successfully
 
 ### Next Steps
-1. Notebooks configured to use the `.venv` kernel (`Python 3.13.5`)
+1. Notebooks set to use the `.venv` kernel (`Python 3.13.5`)
 2. Environment validated for RNA 3D folding analysis
 3. Compatible ML/AI libraries installed and importable
 
 ### Notes
-- Python 3.13.5 is provided via the local `.venv`; ensure VS Code uses this interpreter.
+- Ensure VS Code references `${workspaceFolder}/.venv/bin/python`.
 - If `pip install -r requirements.txt` reports missing wheels, upgrade `pip`, `setuptools`, and `wheel` first.
-- Environment provides the tooling needed for bioinformatics and machine learning workflows.
+- GPU users should install CUDA-enabled wheels for PyTorch when necessary.

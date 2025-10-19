@@ -1,8 +1,4 @@
 # Stanford RNA 3D Folding - Requirements
-# Author: Mauro Risonho de Paula Assumpção <mauro.risonho@gmail.com>
-# Created: October 18, 2025 at 14:30:00
-# License: MIT License
-# Kaggle Competition: https://www.kaggle.com/competitions/stanford-rna-3d-folding
 # Python Version: 3.13.5
 
 # Core Data Science Libraries (compatible with Python 3.13.5)
@@ -21,7 +17,7 @@ transformers>=4.35
 pytorch-lightning>=2.1
 torchmetrics>=1.2
 
-# Optimization & Experiment Tracking
+# Optimisation & Experiment Tracking
 optuna>=3.4
 wandb>=0.15
 

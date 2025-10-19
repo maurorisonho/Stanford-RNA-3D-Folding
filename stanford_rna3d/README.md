@@ -1,64 +1,47 @@
-# Stanford RNA 3D Folding — Portfolio Project
+# Stanford RNA 3D Folding – Project Package
 
 **Author**: Mauro Risonho de Paula Assumpção <mauro.risonho@gmail.com>  
-**Email**: mauro.risonho@gmail.com  
-**Created**: October 18, 2025 at 14:30:00  
 **License**: MIT License  
-**Kaggle Competition**: https://www.kaggle.com/competitions/stanford-rna-3d-folding  
-**Python Version**: 3.13.5 (Latest Stable)
 
----
+The `stanford_rna3d` package contains source code, notebooks, and supporting
+documentation used throughout the Kaggle competition project.
 
-This repository demonstrates cutting-edge machine learning techniques for RNA 3D structure prediction using the latest compatible libraries and frameworks.
+## Structure
 
-## MIT License
+| Path | Description |
+| ---- | ----------- |
+| `configs/` | Optional configuration files for experiments |
+| `data/` | Raw, interim, processed, and external datasets |
+| `notebooks/` | Jupyter notebooks for EDA, baselines, and advanced modelling |
+| `src/` | Python modules (`data_processing.py`, `models.py`, etc.) |
+| `checkpoints/` | Saved model weights and artefacts |
+| `submissions/` | Kaggle submission files |
+| `tests/` | Placeholder for automated test suites |
 
-Copyright (c) 2025 Mauro Risonho de Paula Assumpção <mauro.risonho@gmail.com>
+## Getting Started
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+1. Ensure the repository root virtual environment has been created:
+   ```bash
+   python3.13 01_create_env.py
+   source .venv/bin/activate
+   ```
+2. Run the setup script to populate the directory structure and optional data:
+   ```bash
+   python 02_setup_project.py
+   ```
+3. Launch `jupyter lab` and open the notebooks inside `notebooks/`.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+## Development Notes
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+- Source code under `src/` is designed to be importable as a package:
+  ```python
+  from stanford_rna3d.src.data_processing import RNADataProcessor
+  ```
+- Use `make` targets (`make data`, `make train`, `make predict`) for common
+  operations once the missing pieces in `src/` are implemented.
+- Keep documentation such as `SOLUTION_WRITEUP.md`, `TECHNICAL_DETAILS.md`, and
+  `EXECUTION_PIPELINE.md` updated as the project evolves.
 
----
+## License
 
-## Project Structure
-- `notebooks/` - Jupyter notebooks with complete analysis pipeline
-- `src/` - Python source code modules
-- `data/` - Competition datasets and processed data
-- `configs/` - Model configuration files
-- `SOLUTION_WRITEUP.md` - Complete solution documentation
-- `TECHNICAL_DETAILS.md` - Detailed technical implementation
-
-## Quick Start
-1. Create & activate a Python 3.13.5 virtual environment: `python3.13 -m venv .venv && source .venv/bin/activate`
-2. Install requirements: `pip install -r requirements.txt`
-3. Start Jupyter: `jupyter lab`
-4. Execute notebooks in sequence: `01_eda.ipynb` → `02_baseline.ipynb` → `03_advanced.ipynb` → `04_submission.ipynb`
-
-## Solution Overview
-Our approach combines multiple advanced architectures:
-- **Baseline**: LSTM with attention mechanism
-- **Advanced**: Transformer-based architecture with physics constraints
-- **Ensemble**: Multi-model ensemble with uncertainty quantification
-- **Innovation**: Physics-informed neural networks for biological validity
-
-## Documentation
-- **[Solution Write-up](SOLUTION_WRITEUP.md)**: Complete competition solution documentation
-- **[Technical Details](TECHNICAL_DETAILS.md)**: Detailed implementation specifications
-- **[Environment Setup](ENVIRONMENT_SETUP.md)**: Development environment configuration
-- LSTM and Transformer architectures
-- 3D coordinate prediction
+Distributed under the MIT License. See the repository root `LICENSE` file.

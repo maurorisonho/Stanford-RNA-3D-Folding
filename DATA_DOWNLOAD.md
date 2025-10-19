@@ -1,43 +1,42 @@
 # Data Download Instructions
 
-**Note**: Large data files are not included in this repository due to GitHub size limits.
+**Author**: Mauro Risonho de Paula Assumpção <mauro.risonho@gmail.com>  
+**License**: MIT License
 
-## Download Competition Data
+The Stanford RNA 3D Folding competition is hosted on Kaggle. Follow the steps
+below to obtain the datasets required by the notebooks.
 
-### Option 1: Kaggle API (Recommended)
-```bash
-# Install Kaggle API
-pip install kaggle
+## Option A — Kaggle CLI (recommended)
 
-# Configure API credentials (get from https://www.kaggle.com/account)
-# Place kaggle.json in ~/.kaggle/
+1. Install the Kaggle command line interface inside the project virtual
+   environment:
+   ```bash
+   pip install kaggle
+   ```
+2. Generate an API token by visiting
+   https://www.kaggle.com/settings/account and selecting **Create New API Token**.
+   The downloaded `kaggle.json` file must be placed in `~/.kaggle/kaggle.json`
+   with permissions `600`.
+3. Run the project setup script which will fetch and extract the files:
+   ```bash
+   python 02_setup_project.py
+   ```
+   The raw data will be stored under `stanford_rna3d/data/raw/`.
 
-# Download data
-cd stanford_rna3d/data/raw/
-kaggle competitions download -c stanford-rna-3d-folding
-unzip stanford-rna-3d-folding.zip
-```
+## Option B — Manual Download
 
-### Option 2: Manual Download
-1. Go to https://www.kaggle.com/competitions/stanford-rna-3d-folding/data
-2. Download all files manually
-3. Place in `stanford_rna3d/data/raw/`
+1. Visit the competition page:
+   https://www.kaggle.com/competitions/stanford-rna-3d-folding
+2. Download the desired archives (`train.csv`, `test.csv`, `sample_submission.csv`,
+   and any metadata files).
+3. Extract the archives and copy the contents to
+   `stanford_rna3d/data/raw/`. Keep the default filenames expected by the
+   notebooks.
 
-## Required Files
-- `train_sequences.csv` (3.0MB)
-- `train_labels.csv` (9.3MB)  
-- `train_sequences.v2.csv` (54MB)
-- `train_labels.v2.csv` (256MB) - Large file
-- `validation_sequences.csv` (12KB)
-- `validation_labels.csv` (2.4MB)
-- `test_sequences.csv` (12KB)
-- `sample_submission.csv` (188KB)
+## Additional Resources
 
-## File Sizes
-**Total**: ~325MB (too large for GitHub)
+- `stanford_rna3d/ENVIRONMENT_SETUP.md` documents the verified Python packages.
+- `stanford_rna3d/EXECUTION_PIPELINE.md` explains the end-to-end workflow.
 
-## Alternative: Use Automated Script
-```bash
-# Use the project setup script
-python 02_setup_project.py --dest ./stanford_rna3d --download-data
-```
+For troubleshooting Kaggle CLI authentication, consult the official guide:
+https://github.com/Kaggle/kaggle-api#api-credentials.
