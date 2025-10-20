@@ -4,53 +4,53 @@ This Python script automates the detection of **PII (Personally Identifiable Inf
 
 ## Features
 
-### Tipos de PII Detectados
--  **Emails** (medium priority)
--  **Chaves privadas** SSH/RSA (critical)
--  **Chaves AWS** (critical/high)
--  **Credenciais** (passwords, tokens, API keys)
--  **CPF brasileiro** (high)
--  **SSN americano** (high)
--  **Telefones brasileiros** (medium)
--  **Cartões de crédito** (critical)
+### PII Types Detected
+- **Emails** (medium priority)
+- **Private keys** SSH/RSA (critical)
+- **AWS keys** (critical/high)
+- **Credentials** (passwords, tokens, API keys)
+- **Brazilian CPF** (high)
+- **US SSN** (high)
+- **Brazilian phone numbers** (medium)
+- **Credit cards** (critical)
 
-### Filtros Inteligentes
-- Ignora automaticamente `.venv`, `node_modules`, `.git`
-- Detecta falsos positivos (coordenadas científicas, exemplos)
-- Filtra arquivos binários e muito grandes
+### Smart Filters
+- Automatically ignores `.venv`, `node_modules`, `.git`
+- Detects false positives (scientific coordinates, examples)
+- Filters binary and oversized files
 
-##  Como Usar
+## How to Use
 
-### Instalação
+### Installation
 ```bash
-# O script é standalone, apenas certifique-se de ter Python 3.8+
+# The script is standalone, just ensure you have Python 3.8+
 chmod +x pii_scanner.py
 ```
 
-### Uso Básico
+### Basic Usage
 ```bash
-# Escanear diretório atual
+# Scan current directory
 ./pii_scanner.py
 
-# Escanear diretório específico
-./pii_scanner.py /caminho/para/projeto
+# Scan specific directory
+./pii_scanner.py /path/to/project
 
-# Gerar relatório em JSON
+# Generate JSON report
 ./pii_scanner.py --format json
 
-# Salvar relatório em arquivo
-./pii_scanner.py --output relatorio_pii.txt
+# Save report to file
+./pii_scanner.py --output pii_report.txt
 ```
 
-### Opções Avançadas
+### Advanced Options
 ```bash
-# Excluir padrões customizados
+# Exclude custom patterns
 ./pii_scanner.py --exclude ".*\.cif$" --exclude "test_.*"
 
-# Sem cores (para CI/CD)
+# No colors (for CI/CD)
 ./pii_scanner.py --no-color
 
-# Exemplo completo
+# Complete example
 ./pii_scanner.py stanford_rna3d/ \
   --format json \
   --output pii_report.json \
@@ -58,30 +58,30 @@ chmod +x pii_scanner.py
   --exclude "data/raw/.*"
 ```
 
-##  Interpretação dos Resultados
+##  Results Interpretation
 
-### Níveis de Prioridade
--  **CRITICAL**: Chaves privadas, cartões de crédito - **AÇÃO IMEDIATA**
--  **HIGH**: CPF, SSN, credenciais - **Revisar urgentemente**
--  **MEDIUM**: Emails, telefones - **Verificar se apropriado**
--  **LOW**: Dados possivelmente públicos - **Documentar**
+### Priority Levels
+- **CRITICAL**: Private keys, credit cards - **IMMEDIATE ACTION**
+- **HIGH**: CPF, SSN, credentials - **Review urgently**
+- **MEDIUM**: Emails, phones - **Verify if appropriate**
+- **LOW**: Possibly public data - **Document**
 
-### Códigos de Saída
-- `0`: Nenhum problema ou apenas achados de baixa prioridade
-- `1`: Achados críticos ou de alta prioridade encontrados
+### Exit Codes
+- `0`: No issues or only low priority findings
+- `1`: Critical or high priority findings detected
 
-##  Integração com Git Hooks
+## Git Hooks Integration
 
 ### Pre-commit Hook
-Crie `.git/hooks/pre-commit`:
+Create `.git/hooks/pre-commit`:
 ```bash
 #!/bin/bash
 python3 pii_scanner.py --no-color
 exit_code=$?
 
 if [ $exit_code -eq 1 ]; then
-    echo "❌ Possível PII detectado! Commit bloqueado."
-    echo "Execute 'python3 pii_scanner.py' para detalhes."
+    echo "ERROR: Possible PII detected! Commit blocked."
+    echo "Run 'python3 pii_scanner.py' for details."
     exit 1
 fi
 ```
@@ -106,93 +106,93 @@ jobs:
           path: pii_report.json
 ```
 
-##  Casos de Uso
+## Use Cases
 
-### 1. Auditoria de Segurança
+### 1. Security Audit
 ```bash
-# Varredura completa com relatório detalhado
+# Complete scan with detailed report
 ./pii_scanner.py . --format json --output audit_$(date +%Y%m%d).json
 ```
 
-### 2. Verificação Pré-Release
+### 2. Pre-Release Verification
 ```bash
-# Apenas problemas críticos/altos
+# Only critical/high issues
 ./pii_scanner.py src/ && echo "Ready for release"
 ```
 
-### 3. Limpeza de Repositório
+### 3. Repository Cleanup
 ```bash
-# Encontrar todos os tipos de PII
+# Find all PII types
 ./pii_scanner.py --exclude "\.git.*" > cleanup_report.txt
 ```
 
-##  Personalização
+## Customization
 
-### Adicionar Novos Padrões
-Edite a constante `PATTERNS` no script:
+### Add New Patterns
+Edit the `PATTERNS` constant in the script:
 ```python
 'custom_pattern': {
-    'regex': r'seu_regex_aqui',
+    'regex': r'your_regex_here',
     'severity': 'high',
-    'description': 'Descrição do padrão'
+    'description': 'Pattern description'
 }
 ```
 
-### Filtros Customizados
-Modifique `_is_false_positive()` para casos específicos do seu projeto.
+### Custom Filters
+Modify `_is_false_positive()` for project-specific cases.
 
-##  Exemplo de Saída
+## Output Example
 
 ```
 ============================================================
-RELATÓRIO DE VARREDURA PII
+PII SCAN REPORT
 ============================================================
-Data: 2024-12-19 10:30:15
-Diretório: /home/user/projeto
-Total de achados: 5
+Date: 2024-12-19 10:30:15
+Directory: /home/user/project
+Total findings: 5
 
- HIGH PRIORITY (2 achados)
+HIGH PRIORITY (2 findings)
 --------------------------------------------------
 File: config/settings.py:15
- Tipo: secret_keywords
-Text: Texto: api_key = "sk-abc123..."
-Context: Contexto: OPENAI_API_KEY = "sk-abc123..."
+Type: secret_keywords
+Text: api_key = "sk-abc123..."
+Context: OPENAI_API_KEY = "sk-abc123..."
 
- MEDIUM PRIORITY (3 achados)
+MEDIUM PRIORITY (3 findings)
 --------------------------------------------------
 File: docs/README.md:42
- Tipo: email
-Text: Texto: contato@empresa.com
-Context: Contexto: Entre em contato: contato@empresa.com
+Type: email
+Text: contact@company.com
+Context: Contact us: contact@company.com
 ```
 
-##  Performance
+## Performance
 
-- **Velocidade**: ~100 arquivos/segundo
-- **Memória**: Baixo consumo, processa linha por linha
-- **Escalabilidade**: Adequado para repositórios com milhares de arquivos
+- **Speed**: ~100 files/second
+- **Memory**: Low consumption, processes line by line
+- **Scalability**: Suitable for repositories with thousands of files
 
-##  Limitações e Considerações
+## Limitations and Considerations
 
-### O que NÃO é detectado:
-- PII em dados binários
-- Dados ofuscados ou criptografados
-- PII em imagens ou PDFs
-- Padrões específicos de outras regiões
+### What is NOT detected:
+- PII in binary data
+- Obfuscated or encrypted data
+- PII in images or PDFs
+- Region-specific patterns from other countries
 
-### Falsos Positivos Comuns:
-- Coordenadas científicas como CPF
-- Emails em documentação
-- Chaves de teste/exemplo
-- IDs que parecem credenciais
+### Common False Positives:
+- Scientific coordinates resembling CPF
+- Emails in documentation
+- Test/example keys
+- IDs that look like credentials
 
-## Text: Manutenção
+## Maintenance
 
-Atualize regularmente:
-1. **Padrões regex** para novos tipos de PII
-2. **Filtros de falsos positivos** baseado na experiência
-3. **Lista de exclusões** conforme o projeto evolui
+Update regularly:
+1. **Regex patterns** for new PII types
+2. **False positive filters** based on experience
+3. **Exclusion lists** as the project evolves
 
 ---
 
-** Dica**: Execute o scanner regularmente durante o desenvolvimento para detectar PII antes que chegue ao repositório remoto!
+**Tip**: Run the scanner regularly during development to detect PII before it reaches the remote repository!

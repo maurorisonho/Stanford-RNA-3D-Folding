@@ -3,35 +3,35 @@
 ## Implemented Features
 
 ### Interactive Progress Bar
-- **Biblioteca**: `tqdm` (instalação opcional)
-- **Recursos**:
-  - Contador visual de arquivos processados
-  - Velocidade de processamento em tempo real
-  - Estatísticas dinâmicas (achados atuais, arquivo sendo processado)
-  - Graceful fallback para texto simples se `tqdm` não disponível
+- **Library**: `tqdm` (optional installation)
+- **Features**:
+  - Visual counter of processed files
+  - Real-time processing speed
+  - Dynamic statistics (current findings, file being processed)
+  - Graceful fallback to plain text if `tqdm` not available
 
-###  Exemplo de Saída com Progresso
+### Progress Output Example
 ```
-Iniciando varredura em: stanford_rna3d/notebooks
-Encontrados 5 arquivos para processar
-Escaneando arquivos: 100%|████████████| 5/5 [00:00<00:00, 134.23arquivo/s, achados=10, arquivo=00_competition_overv...]
-Varredura concluída. 5 arquivos processados, 10 achados.
+Starting scan in: stanford_rna3d/notebooks
+Found 5 files to process
+Scanning files: 100%|████████████| 5/5 [00:00<00:00, 134.23files/s, findings=10, file=00_competition_overv...]
+Scan completed. 5 files processed, 10 findings.
 ```
 
-###  Novas Opções de Linha de Comando
-- `--no-progress`: Desabilitar barra de progresso
-- Compatibilidade completa com opções existentes
-- Detecção automática de `tqdm` disponível
+### New Command Line Options
+- `--no-progress`: Disable progress bar
+- Full compatibility with existing options
+- Automatic `tqdm` availability detection
 
-##  Análise dos Dados Raw (61GB)
+## Raw Data Analysis (61GB)
 
-###  Estrutura Atual
+### Current Structure
 ```
 stanford_rna3d/data/raw/
 ├── .gitkeep
 ├── MSA/              # Multiple Sequence Alignments
-├── MSA_v2/           # MSA versão 2
-├── PDB_RNA/          # Estruturas PDB (212k files)
+├── MSA_v2/           # MSA version 2
+├── PDB_RNA/          # PDB structures (212k files)
 ├── sample_submission.csv
 ├── test_sequences.csv
 ├── train_labels.csv
@@ -41,13 +41,13 @@ stanford_rna3d/data/raw/
 └── validation_labels.csv
 ```
 
-###  Processo de Redownload
-**Script Disponível**: `02_setup_project.py`
+### Redownload Process
+**Available Script**: `02_setup_project.py`
 ```bash
-# Redownload completo dos dados
+# Complete data redownload
 python3 02_setup_project.py
 
-# Apenas estrutura (sem download)
+# Structure only (no download)
 python3 02_setup_project.py --skip-download
 ```
 
@@ -80,45 +80,45 @@ echo "" > stanford_rna3d/data/raw/.gitkeep
 python3 02_setup_project.py
 ```
 
-##  Benefícios das Melhorias
+## Improvement Benefits
 
-###  Performance
-- **Pré-cálculo** do total de arquivos para progresso preciso
-- **Feedback visual** em tempo real para projetos grandes
-- **Controle de memória** mantido (processamento linha por linha)
+### Performance
+- **Pre-calculation** of total files for precise progress
+- **Visual feedback** in real-time for large projects
+- **Memory control** maintained (line-by-line processing)
 
-###  Experiência do Usuário
-- **Transparência** total do processo de varredura
-- **Estimativa de tempo** para conclusão
-- **Visibilidade** dos achados em tempo real
-- **Flexibilidade** de ativar/desativar progresso
+### User Experience
+- **Complete transparency** of scanning process
+- **Time estimation** for completion
+- **Real-time visibility** of findings
+- **Flexibility** to enable/disable progress
 
-###  Robustez
-- **Graceful degradation** sem `tqdm`
-- **Type hints** para melhor manutenção
-- **Compatibilidade** com sistemas CI/CD (`--no-progress`)
+### Robustness
+- **Graceful degradation** without `tqdm`
+- **Type hints** for better maintenance
+- **Compatibility** with CI/CD systems (`--no-progress`)
 
-##  Comparação Antes/Depois
+## Before/After Comparison
 
-### Antes
+### Before
 ```
-Iniciando varredura em: .
-Processados 100 arquivos...
-Processados 200 arquivos...
-[... longa espera sem feedback ...]
-Varredura concluída. 1500 arquivos processados.
-```
-
-### Depois
-```
-Iniciando varredura em: .
-Encontrados 1500 arquivos para processar
-Escaneando arquivos: 67%|████████▌    | 1005/1500 [00:12<00:06, 83.2arquivo/s, achados=45, arquivo=data_processor.py...]
+Starting scan in: .
+Processed 100 files...
+Processed 200 files...
+[... long wait without feedback ...]
+Scan completed. 1500 files processed.
 ```
 
-##  Próximos Passos Recomendados
+### After
+```
+Starting scan in: .
+Found 1500 files to process
+Scanning files: 67%|████████▌    | 1005/1500 [00:12<00:06, 83.2files/s, findings=45, file=data_processor.py...]
+```
 
-1. **Teste do redownload**: Verificar se `02_setup_project.py` funciona corretamente
-2. **Integração CI/CD**: Usar `--no-progress` em pipelines automatizados  
-3. **Documentação**: Atualizar README principal com novas funcionalidades
-4. **Monitoramento**: Considerar logs estruturados para auditoria
+## Recommended Next Steps
+
+1. **Redownload testing**: Verify `02_setup_project.py` works correctly
+2. **CI/CD integration**: Use `--no-progress` in automated pipelines  
+3. **Documentation**: Update main README with new features
+4. **Monitoring**: Consider structured logging for auditing
