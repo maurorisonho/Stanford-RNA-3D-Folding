@@ -51,32 +51,32 @@ python3 02_setup_project.py
 python3 02_setup_project.py --skip-download
 ```
 
-##  Instruções de Uso
+## Usage Instructions
 
-### Teste Rápido do Scanner
+### Quick Scanner Test
 ```bash
-# Com barra de progresso (recomendado)
+# With progress bar (recommended)
 python3 pii_scanner.py stanford_rna3d/notebooks/
 
-# Sem barra de progresso
+# Without progress bar
 python3 pii_scanner.py stanford_rna3d/notebooks/ --no-progress
 
-# Excluir dados científicos (PDB, CSV)
+# Exclude scientific data (PDB, CSV)
 python3 pii_scanner.py . --exclude ".*\.cif$" --exclude ".*\.csv$" --exclude "\.venv.*"
 ```
 
-### Remoção Segura dos Dados
+### Safe Data Removal
 ```bash
-# 1. Backup do relatório atual (se necessário)
+# 1. Backup current report (if needed)
 cp PII_ANALYSIS_REPORT.md backup_pii_report_$(date +%Y%m%d).md
 
-# 2. Remover dados brutos (61GB liberados)
+# 2. Remove raw data (61GB freed)
 rm -rf stanford_rna3d/data/raw/*
 
-# 3. Manter apenas .gitkeep
+# 3. Keep only .gitkeep
 echo "" > stanford_rna3d/data/raw/.gitkeep
 
-# 4. Redownload quando necessário
+# 4. Redownload when needed
 python3 02_setup_project.py
 ```
 

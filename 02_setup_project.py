@@ -17,9 +17,8 @@ import json
 import shutil
 import subprocess
 import sys
-import textwrap
 from pathlib import Path
-from typing import Iterable, List
+from typing import List
 
 COMPETITION = "stanford-rna-3d-folding"
 PROJECT_ROOT = Path("stanford_rna3d")

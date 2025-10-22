@@ -117,7 +117,7 @@ class RNADataProcessor:
         sequence = sequence.upper()
         counts: Dict[str, int] = {}
         for i in range(max(0, len(sequence) - k + 1)):
-            kmer = sequence[i : i + k]
+            kmer = sequence[i:i + k]
             counts[kmer] = counts.get(kmer, 0) + 1
         return counts
 

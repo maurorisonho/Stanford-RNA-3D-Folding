@@ -1,35 +1,35 @@
-# Relatório de Análise de PII (Informações Pessoais Identificáveis)
+# PII Analysis Report (Personally Identifiable Information)
 
-**Data da Análise**: 19 de outubro de 2025  
-**Repositório**: Stanford-RNA-3D-Folding  
-**Escopo**: Análise completa excluindo diretórios `.venv`  
+**Analysis Date**: October 19, 2025  
+**Repository**: Stanford-RNA-3D-Folding  
+**Scope**: Comprehensive analysis excluding `.venv` directories  
 
-## Resumo Executivo
+## Executive Summary
 
-Este relatório apresenta os resultados da varredura automatizada por informações pessoais identificáveis (PII) no repositório. A análise focou em identificar emails, chaves privadas, tokens, CPFs, telefones e outros dados sensíveis.
+This report presents the results of an automated scan for personally identifiable information (PII) in the repository. The analysis focused on identifying emails, private keys, tokens, CPFs, phone numbers, and other sensitive data.
 
-### Principais Achados
+### Key Findings
 
-- **200+ emails encontrados**: Principalmente em arquivos PDB_RNA/*.cif (dados públicos do PDB)
-- **0 chaves privadas reais** no código do projeto
-- **0 credenciais AWS/tokens** no código principal
-- **Email do autor** presente em documentação e notebooks (intencional)
-- **Números suspeitos** apenas em datasets CSV científicos (coordenadas/IDs)
+- **200+ emails found**: Primarily in PDB_RNA/*.cif files (public PDB data)
+- **0 real private keys** in project code
+- **0 AWS credentials/tokens** in main code
+- **Author email** present in documentation and notebooks (intentional)
+- **Suspicious numbers** only in scientific CSV datasets (coordinates/IDs)
 
-## Classificação de Achados por Prioridade
+## Findings Classification by Priority
 
-### ALTA PRIORIDADE (Ação Imediata Recomendada)
+### HIGH PRIORITY (Immediate Action Recommended)
 
-#### 1. Diretórios de Ambiente Virtual
-**Localização**: `.venv/` e `stanford_rna3d/.venv/`
-**Problema**: Estes diretórios contêm packages de terceiros e assets que não devem estar no repositório
-**Ação**: Remover do repositório e adicionar ao .gitignore
+#### 1. Virtual Environment Directories
+**Location**: `.venv/` and `stanford_rna3d/.venv/`
+**Issue**: These directories contain third-party packages and assets that should not be in the repository
+**Action**: Remove from repository and add to .gitignore
 
-### MÉDIA PRIORIDADE (Revisão Recomendada)
+### MEDIUM PRIORITY (Review Recommended)
 
-#### 2. Emails em Arquivos PDB
-**Localização**: `stanford_rna3d/data/raw/PDB_RNA/*.cif`
-**Exemplos encontrados**:
+#### 2. Emails in PDB Files
+**Location**: `stanford_rna3d/data/raw/PDB_RNA/*.cif`
+**Examples found**:
 - jfh21@columbia.edu
 - bwiedenheft@gmail.com  
 - wahc@stanford.edu
@@ -37,77 +37,77 @@ Este relatório apresenta os resultados da varredura automatizada por informaç�
 - anna.pyle@yale.edu
 - alexey.amunts@gmail.com
 
-**Contexto**: Estes arquivos contêm metadados públicos do Protein Data Bank (PDB) incluindo informações de contato dos autores dos experimentos.
-**Risco**: Baixo - são dados já públicos no PDB
-**Recomendação**: Manter + documentar origem, ou redigir se política de privacidade exigir
+**Context**: These files contain public metadata from the Protein Data Bank (PDB) including contact information of experiment authors.
+**Risk**: Low - data already public in PDB
+**Recommendation**: Keep + document origin, or redact if privacy policy requires
 
-#### 3. Email do Autor do Projeto
-**Localização**: Documentação, notebooks, LICENSE
+#### 3. Project Author Email
+**Location**: Documentation, notebooks, LICENSE
 **Email**: mauro.risonho@gmail.com
-**Contexto**: Atribuição de autoria inserida intencionalmente
-**Risco**: Baixo - PII voluntário para atribuição
-**Recomendação**: Manter se autoria pública for desejada
+**Context**: Authorship attribution intentionally included
+**Risk**: Low - voluntary PII for attribution
+**Recommendation**: Keep if public authorship is desired
 
-### BAIXA PRIORIDADE (Informativo)
+### LOW PRIORITY (Informational)
 
-#### 4. Dados de Sequência RNA
-**Localização**: `stanford_rna3d/data/raw/train_labels.csv`, `validation_labels.csv`
-**Conteúdo**: IDs de sequência (ex: R1128_37), coordenadas numéricas
-**Risco**: Muito baixo - dados científicos, não PII pessoal
+#### 4. RNA Sequence Data
+**Location**: `stanford_rna3d/data/raw/train_labels.csv`, `validation_labels.csv`
+**Content**: Sequence IDs (e.g., R1128_37), numerical coordinates
+**Risk**: Very low - scientific data, not personal PII
 
-## Detalhamento Técnico
+## Technical Details
 
-### Padrões Pesquisados
+### Patterns Searched
 - Emails: `[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}`
-- Chaves privadas: `-----BEGIN.*PRIVATE KEY-----`
+- Private keys: `-----BEGIN.*PRIVATE KEY-----`
 - AWS Access Keys: `AKIA[0-9A-Z]{16}`, etc.
-- Tokens/senhas: `password|secret|api_key|token|credential`
+- Tokens/passwords: `password|secret|api_key|token|credential`
 - CPF: `\d{3}\.\d{3}\.\d{3}-\d{2}`
-- Telefones: padrões BR e internacionais
+- Phone numbers: Brazilian and international patterns
 
-### Falsos Positivos Identificados
-- Números em datasets CSV: coordenadas X,Y,Z e IDs de sequência
-- Assets em .venv: JS minificados, METADATA de packages
-- Dados de teste em site-packages
+### Identified False Positives
+- Numbers in CSV datasets: X,Y,Z coordinates and sequence IDs
+- Assets in .venv: minified JS, package METADATA
+- Test data in site-packages
 
-## Ações Recomendadas
+## Recommended Actions
 
-### Ação 1: Limpeza de Ambiente - EXECUTAR AGORA
+### Action 1: Environment Cleanup - EXECUTE NOW
 ```bash
-# Adicionar ao .gitignore
+# Add to .gitignore
 echo ".venv/" >> .gitignore
 echo "stanford_rna3d/.venv/" >> .gitignore
 
-# Remover do repositório (se versionado)
+# Remove from repository (if versioned)
 git rm -r --cached .venv/ stanford_rna3d/.venv/ 2>/dev/null || true
 git add .gitignore
 git commit -m "Remove virtual environments from repository and update .gitignore"
 ```
 
-### Ação 2: Documentação dos Dados PDB
-- Adicionar nota em README sobre origem dos arquivos PDB_RNA/*.cif
-- Explicar que contêm metadados públicos do PDB incluindo contatos de autores
+### Action 2: PDB Data Documentation
+- Add note in README about origin of PDB_RNA/*.cif files
+- Explain that they contain public PDB metadata including author contacts
 
-### Ação 3: Script de Monitoramento (Opcional)
-- Criar script Python para varredura PII automatizada
-- Configurar para executar antes de commits
+### Action 3: Monitoring Script (Optional)
+- Create Python script for automated PII scanning
+- Configure to run before commits
 
-## Nenhuma Credencial Crítica Encontrada
+## No Critical Credentials Found
 
-A análise **não encontrou**:
-- Chaves privadas SSH/TLS reais no código
-- Tokens de API válidos 
-- Senhas em texto claro
-- Credenciais AWS reais
-- Dados pessoais sensíveis (CPF, cartões) em código
+The analysis **did not find**:
+- Real SSH/TLS private keys in code
+- Valid API tokens
+- Plaintext passwords
+- Real AWS credentials
+- Sensitive personal data (CPF, credit cards) in code
 
-## Conclusão
+## Conclusion
 
-O repositório está em **boa condição de segurança**. As principais ações necessárias são:
-1. Remover diretórios `.venv` (housekeeping)
-2. Documentar origem dos dados PDB (transparência)
+The repository is in **good security condition**. The main actions needed are:
+1. Remove `.venv` directories (housekeeping)
+2. Document origin of PDB data (transparency)
 
-Nenhuma ação crítica de segurança é necessária imediatamente.
+No critical security action is immediately necessary.
 
 ---
-**Relatório gerado automaticamente** | **Revisar periodicamente antes de releases públicos**
+**Automatically generated report** | **Review periodically before public releases**
