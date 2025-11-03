@@ -69,19 +69,28 @@ import time
 class EnvironmentManager:
     """Class to manage virtual environment and dependencies."""
     
-    def __init__(self, project_root: Optional[str] = None):
+    def __init__(self, project_root: Optional[str] = None, venv_subdir: str = ".venv"):
         """Initialize the environment manager.
         
         Args:
             project_root: Project root path (default: current directory)
+            venv_subdir: Relative path within stanford_rna3d to store the virtualenv
         """
         if project_root:
             self.project_root = Path(project_root).resolve()
         else:
-            self.project_root = Path(__file__).parent.resolve()
+            # Default to repository root (two levels above scripts directory)
+            self.project_root = Path(__file__).resolve().parents[2]
         
         self.stanford_dir = self.project_root / "stanford_rna3d"
-        self.venv_dir = self.stanford_dir / ".venv"
+        if not self.stanford_dir.exists():
+            raise FileNotFoundError(f"Stanford project directory not found at {self.stanford_dir}")
+        
+        self.venv_subdir = Path(venv_subdir)
+        if self.venv_subdir.is_absolute():
+            raise ValueError("venv_subdir must be a relative path inside 'stanford_rna3d'.")
+        
+        self.venv_dir = (self.stanford_dir / self.venv_subdir).resolve()
         self.requirements_file = self.stanford_dir / "requirements.txt"
         
         # Define executables based on OS
@@ -203,6 +212,7 @@ class EnvironmentManager:
         
         try:
             print(f"🔨 Creating virtual environment at: {self.venv_dir}")
+            self.venv_dir.parent.mkdir(parents=True, exist_ok=True)
             self._run_command([sys.executable, "-m", "venv", str(self.venv_dir)])
             
             # Update pip
@@ -347,6 +357,7 @@ class EnvironmentManager:
         print(f"[PYTHON] Python: {py_version} {'[OK]' if is_compatible else '[ERROR] (minimum: 3.8)'}")
         print(f"[SYSTEM] System: {platform.system()} {platform.machine()}")
         print(f"[PROJECT] Project: {self.project_root}")
+        print(f"[MODULE] Stanford dir: {self.stanford_dir}")
         
         # Virtual environment status
         env_exists = self.check_environment_exists()
@@ -472,11 +483,17 @@ Usage examples:
         help="Project root path (default: current directory)"
     )
     
+    parser.add_argument(
+        "--venv-subdir",
+        default=".venv",
+        help="Relative subfolder inside 'stanford_rna3d' for the virtual environment (default: .venv)"
+    )
+    
     args = parser.parse_args()
     
     # Initialize manager
     try:
-        manager = EnvironmentManager(args.project_root)
+        manager = EnvironmentManager(args.project_root, args.venv_subdir)
     except Exception as e:
         print(f"[ERROR] Error initializing manager: {e}")
         sys.exit(1)

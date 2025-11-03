@@ -13,6 +13,7 @@ scipy>=1.11
 # Deep Learning & ML Libraries
 torch>=2.1
 torchvision>=0.16
+torch-geometric>=2.4
 transformers>=4.35
 pytorch-lightning>=2.1
 torchmetrics>=1.2
