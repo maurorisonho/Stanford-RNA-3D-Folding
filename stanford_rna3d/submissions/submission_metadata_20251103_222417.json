@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-11-03T22:24:24.241848",
+  "model_type": "SimpleRNAPredictor",
+  "preprocessing": "identity",
+  "postprocessing": "clipping + smoothing + normalization",
+  "validation_score": null,
+  "training_epochs": null,
+  "notes": "Auto-generated submission pipeline execution.",
+  "files": {
+    "submission": "submission_20251103_222417.csv",
+    "model": "N/A",
+    "preprocessor": null
+  }
+}
