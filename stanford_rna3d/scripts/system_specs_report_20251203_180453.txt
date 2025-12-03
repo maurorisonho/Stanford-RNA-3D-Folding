@@ -1,0 +1,55 @@
+LAPTOP SYSTEM SPECIFICATIONS
+==================================================
+
+SYSTEM INFORMATION
+------------------------------
+OS: Fedora Linux 43 (Xfce)
+Kernel: Linux 6.17.9-300.fc43.x86_64
+Architecture: 64bit
+Hostname: fedora
+Hardware: Notebook P65xHP
+
+PROCESSOR
+------------------------------
+Model: Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz
+Cores: 4 physical / 8 logical
+Frequency: 800MHz - 3800MHz
+
+MEMORY
+------------------------------
+Total RAM: 62.54 GB
+Available: 47.69 GB
+Used: 14.85 GB (23.7%)
+
+GRAPHICS
+------------------------------
+Integrated GPU:
+  - Intel Corporation HD Graphics 630 (rev 04)
+Dedicated GPU:
+  - NVIDIA Corporation GP106BM [GeForce GTX 1060 Mobile 6GB] (rev a1)
+
+STORAGE
+------------------------------
+Root Partition: 392.29/892.24 GB (44.0% used)
+Free Space: 498.9 GB
+
+BATTERY
+------------------------------
+Charge: 100.0%
+Plugged In: True
+
+TEMPERATURES
+------------------------------
+CPU Package: 78.0°C
+CPU Average: 77.8°C
+
+MACHINE LEARNING ENVIRONMENT
+------------------------------
+[OK] torch: 2.9.1+cu128
+[NO] tensorflow: Not installed
+[OK] numpy: 2.3.5
+[OK] pandas: 2.3.3
+[NO] scikit-learn: Not installed
+[NO] CUDA: Not available
+
+Report generated: 2025-12-03 18:04:53

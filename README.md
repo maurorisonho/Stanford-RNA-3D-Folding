@@ -4,8 +4,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/release/python-3135/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.7.1-ee4c2c.svg)](https://pytorch.org/)
-[![CUDA 11.8](https://img.shields.io/badge/CUDA-11.8-76B900.svg)](https://developer.nvidia.com/cuda-toolkit)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.9.1-ee4c2c.svg)](https://pytorch.org/)
+[![CUDA 12.8](https://img.shields.io/badge/CUDA-12.8-76B900.svg)](https://developer.nvidia.com/cuda-toolkit)
 
 **Predicting 3D RNA structure from sequence using deep learning**
 
@@ -81,19 +81,19 @@ Stanford-RNA-3D-Folding/
 │   │   └── data_processing.py  # Data preprocessing utilities
 │   ├── scripts/                 # Utility scripts
 │   │   ├── 00_environment_manager.py
-│   │   ├── 01_create_env.py
-│   │   ├── 02_setup_project.py
+│   │   ├── 01_create_env.py    # Virtual environment setup
+│   │   ├── 02_setup_project.py # Project structure setup
 │   │   ├── 03_submit_late.py   # CLI submission tool
 │   │   ├── pii_scanner.py
-│   │   └── system_specs_checker.py
+│   │   ├── system_specs_checker.py
+│   │   └── .venv/              # Virtual environment (after setup)
 │   ├── checkpoints/             # Saved model weights
 │   ├── submissions/             # Generated submission files
 │   ├── configs/                 # Configuration files
 │   ├── docs/                    # Detailed documentation
 │   ├── tests/                   # Unit tests
 │   ├── requirements.txt         # Python dependencies
-│   ├── Makefile                 # Build automation
-│   └── .venv/                   # Virtual environment
+│   └── Makefile                 # Build automation
 ├── scripts/                     # Root-level scripts
 │   └── setup_dev_env.py
 ├── LICENSE                      # MIT License
@@ -108,8 +108,8 @@ Stanford-RNA-3D-Folding/
 
 ### Prerequisites
 
-- **Python 3.13.5+**
-- **CUDA 11.8** (for GPU support, optional)
+- **Python 3.13.5+** (Tested with Python 3.13.9)
+- **CUDA 12.8** (for GPU support, optional)
 - **Git**
 - **8GB+ RAM** (16GB+ recommended)
 - **NVIDIA GPU with sm_61+ compute capability** (e.g., GTX 1060 or better)
@@ -119,20 +119,52 @@ Stanford-RNA-3D-Folding/
 ```bash
 # Clone the repository
 git clone https://github.com/maurorisonho/Stanford-RNA-3D-Folding.git
-cd Stanford-RNA-3D-Folding/stanford_rna3d
+cd Stanford-RNA-3D-Folding
 
-# Create and activate virtual environment
-python3.13 -m venv .venv
+# Navigate to the project directory
+cd stanford_rna3d/scripts
+
+# Run automated setup (creates virtual environment and project structure)
+python3.13 01_create_env.py
+python3.13 02_setup_project.py
+
+# Activate virtual environment
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
-# Install dependencies with GPU support
-pip install --upgrade pip
-pip install torch==2.7.1+cu118 torchvision==0.22.1+cu118 --index-url https://download.pytorch.org/whl/cu118
+# Navigate back to stanford_rna3d directory
+cd ..
+
+# Install all dependencies (PyTorch 2.9.1 with CUDA 12.8 support)
 pip install -r requirements.txt
 
-# Verify GPU detection
-python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}'); print(f'GPU: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \"N/A\"}')"
+# Verify installation
+python -c "import torch; print(f'PyTorch: {torch.__version__}'); print(f'CUDA available: {torch.cuda.is_available()}')"
+python -c "from src import RNADataProcessor, SimpleRNAPredictor; print('✓ Modules imported successfully')"
 ```
+
+### Alternative: Manual Installation
+
+```bash
+cd Stanford-RNA-3D-Folding/stanford_rna3d
+
+# Create virtual environment manually
+python3.13 -m venv scripts/.venv
+source scripts/.venv/bin/activate
+
+# Install dependencies
+pip install --upgrade pip setuptools wheel
+pip install -r requirements.txt
+```
+
+### Verify System Configuration
+
+```bash
+cd scripts
+source .venv/bin/activate
+python3.13 system_specs_checker.py
+```
+
+This will display your system specifications and verify that all required libraries are installed.
 
 ### Download Competition Data
 
@@ -150,98 +182,136 @@ unzip data/raw/stanford-rna-3d-folding.zip -d data/raw/
 
 ## 🔧 Environment Setup
 
+### Automated Setup (Recommended)
+
+```bash
+cd stanford_rna3d/scripts
+
+# Step 1: Create virtual environment
+python3.13 01_create_env.py
+
+# Step 2: Set up project structure
+python3.13 02_setup_project.py
+
+# Step 3: Activate environment
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Step 4: Install dependencies
+cd ..
+pip install -r requirements.txt
+```
+
 ### Manual Setup
 
 ```bash
 cd stanford_rna3d
-python3.13 -m venv .venv
-source .venv/bin/activate
 
-# Install PyTorch with CUDA 11.8
-pip install torch==2.7.1+cu118 torchvision==0.22.1+cu118 --index-url https://download.pytorch.org/whl/cu118
+# Create virtual environment in scripts directory
+python3.13 -m venv scripts/.venv
+source scripts/.venv/bin/activate
 
-# Install remaining dependencies
+# Upgrade pip and install dependencies
+pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt
-```
-
-### Automated Setup
-
-```bash
-cd stanford_rna3d
-python scripts/01_create_env.py     # Creates virtual environment
-python scripts/02_setup_project.py  # Sets up project structure
 ```
 
 ### Verify Installation
 
 ```bash
-python scripts/system_specs_checker.py
+cd scripts
+source .venv/bin/activate
+python3.13 system_specs_checker.py
 ```
 
 Expected output:
 ```
-✓ Python 3.13.5
-✓ PyTorch 2.7.1+cu118
-✓ CUDA 11.8
-✓ GPU: NVIDIA GeForce GTX 1060
+✓ Python 3.13.9
+✓ PyTorch 2.9.1+cu128
+✓ NumPy 2.3.5
+✓ Pandas 2.3.3
+✓ Matplotlib 3.10.7
 ```
+
+**Note**: CUDA availability depends on your GPU drivers. The installed PyTorch version (2.9.1) supports CUDA 12.8.
 
 ---
 
 ## 💻 Usage
 
-### 1. Exploratory Data Analysis
+### Starting Jupyter Lab
 
 ```bash
-jupyter lab notebooks/01_eda.ipynb
+cd stanford_rna3d
+source scripts/.venv/bin/activate
+jupyter lab
 ```
 
-Explore RNA sequences, labels, MSA features, and data distributions.
+This will open Jupyter Lab in your browser at `http://localhost:8888`.
+
+### 1. Exploratory Data Analysis
+
+Open and run `notebooks/01_eda.ipynb` to:
+- Explore RNA sequences and structure
+- Analyze label distributions
+- Visualize MSA features
+- Understand data characteristics
 
 ### 2. Train Baseline Model
 
-```bash
-jupyter lab notebooks/02_baseline.ipynb
-```
-
-Train a simple LSTM-based model for RNA coordinate prediction.
+Open and run `notebooks/02_baseline.ipynb` to:
+- Preprocess RNA sequences
+- Train a simple LSTM-based model
+- Evaluate model performance
+- Save trained model to `checkpoints/`
 
 ### 3. Train Advanced Model
 
-```bash
-jupyter lab notebooks/03_advanced.ipynb
-```
-
-Experiment with Transformer architectures and graph neural networks.
+Open and run `notebooks/03_advanced.ipynb` to:
+- Experiment with Transformer architectures
+- Implement attention mechanisms
+- Try graph neural networks
+- Compare model performances
 
 ### 4. Generate Submission
 
-```bash
-jupyter lab notebooks/04_submission.ipynb
-```
-
+Open and run `notebooks/04_submission.ipynb` to:
 - Load best model from `checkpoints/`
 - Generate predictions for test set
 - Apply post-processing (smoothing, normalization)
-- Create submission CSV
+- Create submission CSV in `submissions/`
 - Upload to Kaggle (interactive button)
 
 ---
 
 ## 🎮 GPU Support
 
-### Enable CUDA
+### CUDA Configuration
 
-The project automatically detects and uses available GPUs. PyTorch is configured with CUDA 11.8 for compatibility with compute capability 6.1+ GPUs (e.g., GTX 1060, RTX series).
+The project automatically detects and uses available GPUs. PyTorch is installed with CUDA 12.8 support for compatibility with compute capability 6.1+ GPUs (e.g., GTX 1060, RTX series).
 
 **Verification:**
 
-```python
-import torch
-print(f"CUDA available: {torch.cuda.is_available()}")
-print(f"CUDA version: {torch.version.cuda}")
-print(f"GPU name: {torch.cuda.get_device_name(0)}")
+```bash
+cd stanford_rna3d
+source scripts/.venv/bin/activate
+python -c "import torch; print(f'PyTorch: {torch.__version__}'); print(f'CUDA available: {torch.cuda.is_available()}'); print(f'CUDA version: {torch.version.cuda if torch.cuda.is_available() else \"N/A\"}')"
 ```
+
+Expected output (with GPU):
+```
+PyTorch: 2.9.1+cu128
+CUDA available: True
+CUDA version: 12.8
+```
+
+Expected output (CPU only):
+```
+PyTorch: 2.9.1+cu128
+CUDA available: False
+CUDA version: N/A
+```
+
+**Note**: If CUDA is not available, ensure you have the appropriate NVIDIA drivers installed for your GPU.
 
 ### Disable CUDA (CPU-only mode)
 
